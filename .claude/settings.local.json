@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      "Skill(claude-api)",
+      "Bash(python3 -c ':*)",
+      "Bash(python3:*)",
+      "Bash(mv /tmp/nb_fix.ipynb /Users/lasyamadhuri/ai-agent-project/research_pipeline.ipynb)"
+    ]
+  }
+}
