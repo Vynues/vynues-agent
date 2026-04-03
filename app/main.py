@@ -27,6 +27,10 @@ def health():
 
 @app.post("/research", response_model=ResearchResponse)
 async def research(req: ResearchRequest):
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="OPENAI_API_KEY is not set")
+
     try:
         result = await run_vynues_pipeline(
             event_type=req.event_type,
