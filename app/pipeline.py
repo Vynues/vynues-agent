@@ -4,7 +4,7 @@ import os
 from typing import List
 
 from agents import Agent, Runner, function_tool
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 MODEL = "gpt-4o"
 
@@ -25,12 +25,19 @@ class ScoredBusiness(BaseModel):
     match_score: int
     reason: str
     category: str             # "Venues" | "Catering" | "Florists" | "Bakeries"
-    yelp_stars: float
+    yelp_stars: float | None = None
     price_range: str
     phone: str = ""
     latitude: float = 0.0
     longitude: float = 0.0
     cuisine_type: str = ""    # Catering only
+
+    @field_validator("yelp_stars", mode="before")
+    @classmethod
+    def clamp_yelp_stars(cls, v):
+        if v is not None and v > 5:
+            return None
+        return v
 
 
 class AnalystOutput(BaseModel):
