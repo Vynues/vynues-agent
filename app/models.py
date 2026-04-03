@@ -2,6 +2,13 @@ from pydantic import BaseModel, Field
 from typing import List
 
 
+# ── Query-only request (parsed by the endpoint) ───────────────────────────────
+
+class QueryRequest(BaseModel):
+    query: str = Field(..., description="Natural-language event planning query")
+    page: int = Field(default=1, ge=1, description="Page number (10 results per page)")
+
+
 # ── Request ───────────────────────────────────────────────────────────────────
 
 class ResearchRequest(BaseModel):
