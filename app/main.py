@@ -27,10 +27,6 @@ def health():
 
 @app.post("/research", response_model=ResearchResponse)
 async def research(req: ResearchRequest):
-    # Require OPENAI_API_KEY — openai-agents picks it up from the environment automatically
-    if not os.environ.get("OPENAI_API_KEY"):
-        raise HTTPException(status_code=500, detail="OPENAI_API_KEY is not set.")
-
     try:
         result = await run_vynues_pipeline(
             event_type=req.event_type,
